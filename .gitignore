@@ -6,6 +6,8 @@ dist/
 
 # Test artifacts
 coverage/
+playwright-report/
+test-results/
 
 # Generated test fixtures (recreate with: npm run fixtures)
 fixtures/*

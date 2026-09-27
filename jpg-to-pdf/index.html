@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JPG/PNG to PDF — Private PDF Tools</title>
+    <meta
+      name="description"
+      content="Turn JPG and PNG images into a PDF, locally in your browser. No account. No upload. No watermark."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/styles.css" />
+    <script type="module" src="../src/ui/images-to-pdf-page.ts"></script>
+  </head>
+  <body>
+    <main>
+      <nav class="breadcrumb"><a href="/">&larr; All PDF tools</a></nav>
+      <h1>JPG/PNG to PDF</h1>
+      <p class="tool-description">
+        Combine one or more images into a PDF, one image per page. Files are processed locally in
+        your browser and never uploaded.
+      </p>
+
+      <div id="dropzone" class="dropzone">
+        <p>Drag &amp; drop JPG or PNG images here, or</p>
+        <button type="button" id="pick-files">Choose images</button>
+        <input type="file" id="file-input" accept="image/png,image/jpeg,.png,.jpg,.jpeg" multiple />
+      </div>
+
+      <ul id="file-list" class="file-list" aria-label="Selected file"></ul>
+
+      <fieldset class="options">
+        <legend>Page size</legend>
+        <label>
+          Each image becomes one page:
+          <select id="page-size">
+            <option value="fit" selected>Same size as the image</option>
+            <option value="a4">A4, image centered</option>
+            <option value="letter">Letter, image centered</option>
+          </select>
+        </label>
+      </fieldset>
+      <div class="actions">
+        <button type="button" id="run" class="primary" disabled>Create PDF</button>
+        <button type="button" id="reset" disabled>Reset</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <ul id="downloads" class="downloads"></ul>
+    </main>
+    <footer class="site">
+      <p>Your files stay on your device. Nothing is uploaded.</p>
+    </footer>
+  </body>
+</html>

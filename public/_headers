@@ -1,0 +1,31 @@
+# Security headers for Cloudflare Pages (spec §10.2/§10.3).
+# Also applied by scripts/serve-dist.mjs so Playwright tests exercise the
+# same policy the production site ships with.
+#
+# CSP rationale (documented per spec §10.2):
+# - default-src 'none': deny-by-default; every allowed source is explicit.
+# - script-src 'self': all JavaScript is bundled and same-origin; no inline
+#   scripts, no remote scripts, no eval.
+# - script-src 'wasm-unsafe-eval': PDF.js loads same-origin WebAssembly
+#   decoders (e.g. JPEG 2000/ICC) for some documents; this directive allows
+#   WASM compilation WITHOUT allowing string eval. PDF.js is also configured
+#   with isEvalSupported:false so it never needs 'unsafe-eval'.
+# - worker-src 'self' blob:: the PDF.js worker ships as a bundled same-origin
+#   asset; blob: covers its fallback worker bootstrap.
+# - img-src 'self' blob:: favicon is same-origin; generated images/thumbnails
+#   are shown from blob: object URLs.
+# - connect-src 'self': PDF.js fetches its worker/WASM assets same-origin.
+#   Nothing else may be contacted — PDF content can never leave the origin.
+# - style-src 'self': one bundled stylesheet; no inline styles.
+# - frame-ancestors 'none' (+ X-Frame-Options): clickjacking defence.
+# - base-uri/form-action 'none': no <base> hijacking, no form submission.
+
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin

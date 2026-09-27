@@ -8,18 +8,38 @@ import { el, formatBytes } from './dom';
 
 const activeUrls = new Set<string>();
 
-export function createDownloadItem(output: PdfOutput): HTMLLIElement {
-  const blob = new Blob([output.bytes as BlobPart], { type: 'application/pdf' });
+export interface DownloadableFile {
+  data: Uint8Array | Blob;
+  name: string;
+  mimeType: string;
+  /** Extra human-readable detail, e.g. "3 pages". */
+  detail?: string;
+}
+
+/** Adapt a PdfOutput from the operation layer into a downloadable file. */
+export function pdfDownload(output: PdfOutput): DownloadableFile {
+  return {
+    data: output.bytes,
+    name: output.suggestedName,
+    mimeType: 'application/pdf',
+    detail: `${String(output.pageCount)} page${output.pageCount === 1 ? '' : 's'}`,
+  };
+}
+
+export function createDownloadItem(file: DownloadableFile): HTMLLIElement {
+  const blob =
+    file.data instanceof Blob
+      ? file.data
+      : new Blob([file.data as BlobPart], { type: file.mimeType });
   const url = URL.createObjectURL(blob);
   activeUrls.add(url);
 
+  const detail = file.detail !== undefined ? `${file.detail}, ` : '';
   const link = el('a', {
-    text: `Download ${output.suggestedName} (${String(output.pageCount)} page${
-      output.pageCount === 1 ? '' : 's'
-    }, ${formatBytes(output.bytes.length)})`,
+    text: `Download ${file.name} (${detail}${formatBytes(blob.size)})`,
   });
   link.href = url;
-  link.download = output.suggestedName;
+  link.download = file.name;
   return el('li', {}, [link]);
 }
 

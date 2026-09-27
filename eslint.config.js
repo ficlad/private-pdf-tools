@@ -13,7 +13,7 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['eslint.config.js'],
+          allowDefaultProject: ['eslint.config.js', 'scripts/serve-dist.mjs'],
         },
         tsconfigRootDir: import.meta.dirname,
       },
@@ -31,6 +31,14 @@ export default tseslint.config(
     files: ['*.config.ts', '*.config.js', 'scripts/**', 'tests/**'],
     rules: {
       'no-console': 'off',
+    },
+  },
+  {
+    // Plain-JS Node scripts: no type information available.
+    files: ['**/*.mjs'],
+    ...tseslint.configs.disableTypeChecked,
+    languageOptions: {
+      globals: { process: 'readonly', console: 'readonly', URL: 'readonly' },
     },
   },
   prettier,

@@ -11,29 +11,31 @@ Last audited: 2026-09-27 (against `package-lock.json` at that date).
 These packages (or parts of them) are bundled and minified into the
 production JavaScript served to browsers.
 
-| Package                 | Version | License      | Repository                                | Bundled                                                                                                          | Modified |
-| ----------------------- | ------- | ------------ | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------- |
-| pdf-lib                 | 1.17.1  | MIT          | https://github.com/Hopding/pdf-lib        | yes (minified)                                                                                                   | no       |
-| @pdf-lib/standard-fonts | 1.0.0   | MIT          | https://github.com/Hopding/standard-fonts | yes, via pdf-lib                                                                                                 | no       |
-| @pdf-lib/upng           | 1.0.1   | MIT          | https://github.com/Hopding/upng           | yes, via pdf-lib                                                                                                 | no       |
-| pako                    | 1.0.11  | MIT AND Zlib | https://github.com/nodeca/pako            | yes, via pdf-lib                                                                                                 | no       |
-| tslib                   | 1.14.1  | 0BSD         | https://github.com/Microsoft/tslib        | yes, via pdf-lib                                                                                                 | no       |
-| pdfjs-dist (PDF.js)     | 4.10.38 | Apache-2.0   | https://github.com/mozilla/pdf.js         | not yet (installed for the upcoming preview/PDF-to-image features; currently not imported, so not in the bundle) | no       |
+| Package                 | Version | License      | Repository                                | Bundled                                          | Modified |
+| ----------------------- | ------- | ------------ | ----------------------------------------- | ------------------------------------------------ | -------- |
+| pdf-lib                 | 1.17.1  | MIT          | https://github.com/Hopding/pdf-lib        | yes (minified)                                   | no       |
+| @pdf-lib/standard-fonts | 1.0.0   | MIT          | https://github.com/Hopding/standard-fonts | yes, via pdf-lib                                 | no       |
+| @pdf-lib/upng           | 1.0.1   | MIT          | https://github.com/Hopding/upng           | yes, via pdf-lib                                 | no       |
+| pako                    | 1.0.11  | MIT AND Zlib | https://github.com/nodeca/pako            | yes, via pdf-lib                                 | no       |
+| tslib                   | 1.14.1  | 0BSD         | https://github.com/Microsoft/tslib        | yes, via pdf-lib                                 | no       |
+| pdfjs-dist (PDF.js)     | 4.10.38 | Apache-2.0   | https://github.com/mozilla/pdf.js         | yes (minified; main-thread build + worker asset) | no       |
 
 ### Obligations
 
 - **MIT** (pdf-lib, @pdf-lib/standard-fonts, @pdf-lib/upng, pako in part):
   retain the copyright notice and permission notice. Satisfied by this file
-  and by the full license texts in the packages' repositories/npm tarballs.
+  and the full license text in `licenses/pdf-lib-LICENSE-MIT.md` (copied
+  verbatim from the shipped package).
   - pdf-lib: Copyright (c) 2019 Andrew Dillon
 - **Zlib** (pako's zlib portions): altered versions must be marked; we ship
   it unmodified. Attribution retained here.
 - **0BSD** (tslib): no attribution required; recorded for completeness.
-- **Apache-2.0** (pdfjs-dist): when PDF.js starts shipping in the bundle,
-  include its LICENSE and any NOTICE content with the distribution, and state
-  changes if modified. Re-audit at that point — this is tracked as an open
-  item, and PDF.js also vendors third-party components with their own
-  notices that must be checked individually before bundling.
+- **Apache-2.0** (pdfjs-dist): a copy of the license is included at
+  `licenses/pdfjs-dist-LICENSE-Apache-2.0.txt` (copied verbatim from the
+  shipped package, which carries no separate NOTICE file). We bundle the
+  library unmodified (minified by our build). The optional WASM decoders
+  under `pdfjs-dist/wasm/` (OpenJPEG, qcms) are NOT currently shipped —
+  re-audit their individual notices if they are ever added to the bundle.
 
 ## Development-only dependencies (not shipped to users)
 
@@ -43,6 +45,7 @@ the production output; recorded here for completeness of the audit trail.
 | Package                | Version | License    |
 | ---------------------- | ------- | ---------- |
 | @eslint/js             | 9.39.5  | MIT        |
+| @playwright/test       | 1.56.1  | Apache-2.0 |
 | @types/node            | 22.20.4 | MIT        |
 | eslint                 | 9.39.5  | MIT        |
 | eslint-config-prettier | 9.1.2   | MIT        |
