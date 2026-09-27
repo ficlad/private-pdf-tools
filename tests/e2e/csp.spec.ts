@@ -14,6 +14,15 @@ const ALL_PAGES = [
   '/reverse-pdf/',
   '/jpg-to-pdf/',
   '/pdf-to-jpg/',
+  '/add-page-numbers/',
+  '/watermark-pdf/',
+  '/crop-pdf/',
+  '/resize-pdf/',
+  '/edit-pdf-metadata/',
+  '/grayscale-pdf/',
+  '/flatten-pdf/',
+  '/compress-pdf/',
+  '/pdf-info/',
 ];
 
 test.describe('strict CSP holds on every page', () => {

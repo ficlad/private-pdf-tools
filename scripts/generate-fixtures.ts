@@ -193,6 +193,40 @@ async function makeWithMetadataPdf(): Promise<Uint8Array> {
   return doc.save();
 }
 
+async function makeWithFormPdf(): Promise<Uint8Array> {
+  const doc = await PDFDocument.create();
+  const font = await doc.embedFont(StandardFonts.Helvetica);
+  const page = doc.addPage(A4);
+  page.drawText('Form fixture', { x: 50, y: 780, size: 18, font });
+  const form = doc.getForm();
+  const nameField = form.createTextField('applicant.name');
+  nameField.setText('Ada Lovelace');
+  nameField.addToPage(page, { x: 50, y: 700, width: 220, height: 24 });
+  const agree = form.createCheckBox('applicant.agrees');
+  agree.check();
+  agree.addToPage(page, { x: 50, y: 660, width: 18, height: 18 });
+  return doc.save();
+}
+
+async function makeUncompressedPdf(): Promise<Uint8Array> {
+  // Bloated on purpose: classic xref, no object streams — the lossless
+  // compression test asserts a re-save shrinks it.
+  const doc = await PDFDocument.create();
+  const font = await doc.embedFont(StandardFonts.Helvetica);
+  for (let i = 0; i < 10; i += 1) {
+    const page = doc.addPage(A4);
+    for (let line = 0; line < 20; line += 1) {
+      page.drawText(`Fixture line ${String(line + 1)} on page ${String(i + 1)}`, {
+        x: 50,
+        y: 780 - line * 30,
+        size: 12,
+        font,
+      });
+    }
+  }
+  return doc.save({ useObjectStreams: false });
+}
+
 function makeZeroPagePdf(): Uint8Array {
   // Hand-written minimal PDF whose page tree is empty.
   const text = [
@@ -280,6 +314,8 @@ export async function generateFixtures(dir: string): Promise<void> {
     'mixed-sizes.pdf': await makeMixedSizesPdf(),
     'with-images.pdf': await makeWithImagesPdf(),
     'with-metadata.pdf': await makeWithMetadataPdf(),
+    'with-form.pdf': await makeWithFormPdf(),
+    'uncompressed.pdf': await makeUncompressedPdf(),
     'zero-pages.pdf': makeZeroPagePdf(),
     'malformed.pdf': makeMalformedPdf(),
     'truncated.pdf': tenPage.slice(0, Math.floor(tenPage.length * 0.3)),

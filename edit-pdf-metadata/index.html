@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit PDF metadata — Private PDF Tools</title>
+    <meta
+      name="description"
+      content="View and edit a PDF’s title, author, subject and keywords, locally in your browser. No account. No upload. No watermark."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/styles.css" />
+    <script type="module" src="../src/ui/metadata-page.ts"></script>
+  </head>
+  <body>
+    <main>
+      <nav class="breadcrumb"><a href="/">&larr; All PDF tools</a></nav>
+      <h1>Edit PDF metadata</h1>
+      <p class="tool-description">
+        See what a PDF says about itself and change the fields you want. Files are processed locally
+        in your browser and never uploaded.
+      </p>
+
+      <div id="dropzone" class="dropzone">
+        <p>Drag &amp; drop a PDF here, or</p>
+        <button type="button" id="pick-files">Choose a file</button>
+        <input type="file" id="file-input" accept="application/pdf,.pdf" />
+      </div>
+
+      <ul id="file-list" class="file-list" aria-label="Selected file"></ul>
+
+      <fieldset class="options">
+        <legend>Document metadata</legend>
+        <label>Title <input type="text" id="meta-title" maxlength="2000" /></label>
+        <label>Author <input type="text" id="meta-author" maxlength="2000" /></label>
+        <label>Subject <input type="text" id="meta-subject" maxlength="2000" /></label>
+        <label
+          >Keywords (comma-separated) <input type="text" id="meta-keywords" maxlength="2000"
+        /></label>
+        <p class="field-note">Producer: <span id="meta-producer"></span></p>
+        <p class="field-note">Creator: <span id="meta-creator"></span></p>
+        <p class="field-note">Created: <span id="meta-created"></span></p>
+        <p class="field-note">Modified: <span id="meta-modified"></span> (updated on save)</p>
+      </fieldset>
+      <div class="actions">
+        <button type="button" id="run" class="primary" disabled>Save metadata</button>
+        <button type="button" id="reset" disabled>Reset</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <ul id="downloads" class="downloads"></ul>
+    </main>
+    <footer class="site">
+      <p>Your files stay on your device. Nothing is uploaded.</p>
+    </footer>
+  </body>
+</html>

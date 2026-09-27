@@ -1,10 +1,11 @@
 /**
  * Thin adapter over pdf-lib (spec §7).
  *
- * All pdf-lib usage in the application goes through this module so the
- * underlying library can be replaced later. Services (merge, split, …) call
- * these functions and never import pdf-lib directly; the UI never calls
- * either pdf-lib or this adapter directly.
+ * Shared pdf-lib plumbing (load/validate/save/copy) lives here so the
+ * underlying library can be replaced later. Operation services may use
+ * pdf-lib page APIs directly for their specific work (spec §7: "do not
+ * over-engineer the abstraction"); the UI never touches pdf-lib or this
+ * adapter — it goes through the operation services only.
  *
  * Every load path validates input first (spec §8) and converts library
  * exceptions into typed `PdfOperationError`s.

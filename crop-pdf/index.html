@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop PDF — Private PDF Tools</title>
+    <meta
+      name="description"
+      content="Crop the visible area of PDF pages, locally in your browser. No account. No upload. No watermark."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/styles.css" />
+    <script type="module" src="../src/ui/crop-page.ts"></script>
+  </head>
+  <body>
+    <main>
+      <nav class="breadcrumb"><a href="/">&larr; All PDF tools</a></nav>
+      <h1>Crop PDF</h1>
+      <p class="tool-description">
+        Cut a margin from any edge. Cropping hides content but does not delete it, so this is not a
+        redaction tool. Files are processed locally in your browser and never uploaded.
+      </p>
+
+      <div id="dropzone" class="dropzone">
+        <p>Drag &amp; drop a PDF here, or</p>
+        <button type="button" id="pick-files">Choose a file</button>
+        <input type="file" id="file-input" accept="application/pdf,.pdf" />
+      </div>
+
+      <ul id="file-list" class="file-list" aria-label="Selected file"></ul>
+
+      <fieldset class="options">
+        <legend>Cut from each edge (points, 1/72 inch)</legend>
+        <label>Top <input type="number" id="crop-top" value="0" min="0" step="1" /></label>
+        <label>Right <input type="number" id="crop-right" value="0" min="0" step="1" /></label>
+        <label>Bottom <input type="number" id="crop-bottom" value="0" min="0" step="1" /></label>
+        <label>Left <input type="number" id="crop-left" value="0" min="0" step="1" /></label>
+      </fieldset>
+      <div id="thumbs" class="thumb-grid" aria-label="Page previews"></div>
+      <div class="actions">
+        <button type="button" id="run" class="primary" disabled>Crop pages</button>
+        <button type="button" id="reset" disabled>Reset</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <ul id="downloads" class="downloads"></ul>
+    </main>
+    <footer class="site">
+      <p>Your files stay on your device. Nothing is uploaded.</p>
+    </footer>
+  </body>
+</html>

@@ -258,6 +258,34 @@ ul.downloads li {
   margin: 0.35rem 0;
 }
 
+.field-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}
+
+/* --- PDF info list --- */
+
+.info-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.info-list dt {
+  font-weight: 600;
+}
+
+.info-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 /* --- Page thumbnails --- */
 
 .thumb-grid {

@@ -31,3 +31,24 @@ export { rotatePages } from './operations/rotate';
 export { duplicatePages } from './operations/duplicate';
 export { reversePages } from './operations/reverse';
 export { imagesToPdf, type ImagesToPdfOptions } from './operations/images-to-pdf';
+export {
+  addPageNumbers,
+  type PageNumberFormat,
+  type PageNumberOptions,
+  type PageNumberPosition,
+} from './operations/page-numbers';
+export { addWatermark, type WatermarkOptions } from './operations/watermark';
+export { cropPages, type CropInsets, type CropOptions } from './operations/crop';
+export { resizePages, type PageSizeTarget, type ResizeOptions } from './operations/resize';
+export {
+  readPdfMetadata,
+  setPdfMetadata,
+  type MetadataEdits,
+  type PdfMetadata,
+} from './operations/metadata';
+export { flattenPdf, type FlattenResult } from './operations/flatten';
+export { compressPdf, type CompressResult } from './operations/compress';
+export { readPdfInfo, type PageSizeSummary, type PdfInfo } from './operations/info';
+// NOTE: pdf-to-images.ts and rasterize.ts are browser-only (canvas) and are
+// intentionally NOT exported here; pages import them directly so this barrel
+// stays node-safe and PDF.js is never pulled in by pdf-lib-only tools.
