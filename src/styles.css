@@ -1,0 +1,273 @@
+/* Private PDF Tools — shared styles. No remote resources (spec §10.4). */
+
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #5c5c58;
+  --accent: #0b57d0;
+  --accent-contrast: #ffffff;
+  --border: #d9d9d4;
+  --danger: #b3261e;
+  --success: #146c2e;
+  --radius: 10px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #191918;
+    --surface: #232322;
+    --text: #ececea;
+    --text-muted: #a5a5a0;
+    --accent: #8ab4f8;
+    --accent-contrast: #10233f;
+    --border: #3a3a38;
+    --danger: #f2b8b5;
+    --success: #7fd394;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  line-height: 1.55;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+header.site {
+  padding: 1rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.7rem;
+  margin: 0 0 0.3rem;
+}
+
+p.tagline,
+p.tool-description {
+  color: var(--text-muted);
+  margin-top: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+nav.breadcrumb {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* --- Landing page tool grid --- */
+
+ul.tool-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.8rem;
+}
+
+ul.tool-grid a,
+ul.tool-grid .coming-soon {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+  height: 100%;
+}
+
+ul.tool-grid a:hover {
+  border-color: var(--accent);
+}
+
+ul.tool-grid .tool-name {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+ul.tool-grid .tool-blurb {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+ul.tool-grid .coming-soon {
+  opacity: 0.65;
+}
+
+ul.tool-grid .coming-soon .tool-blurb::after {
+  content: ' (coming soon)';
+}
+
+/* --- Tool pages --- */
+
+.dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 2.2rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.dropzone.dragover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.dropzone input[type='file'] {
+  display: none;
+}
+
+button {
+  font: inherit;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.icon {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.file-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.file-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: 0.4rem;
+}
+
+.file-list .file-name {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+
+.file-list .file-size {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+fieldset.options {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin: 1rem 0;
+  padding: 0.8rem 1rem;
+}
+
+fieldset.options label {
+  display: block;
+  margin: 0.3rem 0;
+}
+
+fieldset.options input[type='number'],
+fieldset.options input[type='text'] {
+  font: inherit;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.status {
+  min-height: 1.5rem;
+  margin: 0.8rem 0;
+}
+
+.status.error {
+  color: var(--danger);
+}
+
+.status.success {
+  color: var(--success);
+}
+
+ul.downloads {
+  list-style: none;
+  padding: 0;
+}
+
+ul.downloads li {
+  margin: 0.35rem 0;
+}
+
+footer.site {
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.2rem 1rem 2rem;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1rem 16px 3rem;
+  }
+}

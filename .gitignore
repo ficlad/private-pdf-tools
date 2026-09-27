@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Test artifacts
+coverage/
+
+# Generated test fixtures (recreate with: npm run fixtures)
+fixtures/*
+!fixtures/README.md
+
+# Editor/OS noise
+.DS_Store
+*.local

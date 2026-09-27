@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Merge PDFs — Private PDF Tools</title>
+    <meta
+      name="description"
+      content="Combine several PDF files into one, locally in your browser. No account. No upload. No watermark."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../src/styles.css" />
+    <script type="module" src="../src/ui/merge-page.ts"></script>
+  </head>
+  <body>
+    <main>
+      <nav class="breadcrumb"><a href="/">&larr; All PDF tools</a></nav>
+      <h1>Merge PDFs</h1>
+      <p class="tool-description">
+        Combine two or more PDF files into a single document. Files are processed locally in your
+        browser and never uploaded.
+      </p>
+
+      <div id="dropzone" class="dropzone">
+        <p>Drag &amp; drop PDF files here, or</p>
+        <button type="button" id="pick-files">Choose files</button>
+        <input type="file" id="file-input" accept="application/pdf,.pdf" multiple />
+      </div>
+
+      <ul id="file-list" class="file-list" aria-label="Files to merge"></ul>
+
+      <div class="actions">
+        <button type="button" id="merge" class="primary" disabled>Merge PDFs</button>
+        <button type="button" id="reset" disabled>Reset</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <ul id="downloads" class="downloads"></ul>
+    </main>
+    <footer class="site">
+      <p>Your files stay on your device. Nothing is uploaded.</p>
+    </footer>
+  </body>
+</html>
