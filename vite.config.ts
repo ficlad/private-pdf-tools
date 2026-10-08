@@ -4,6 +4,11 @@ import { defineConfig } from 'vite';
 
 // Multi-page static site: each tool gets its own stable URL (spec §19).
 export default defineConfig({
+  /* Relative base so the built site works from any deploy path — domain root
+     (Cloudflare Pages), a sub-path (GitHub Pages project site), or local
+     file hosting. Internal page links are written relative for the same
+     reason. */
+  base: './',
   build: {
     target: 'es2022',
     rollupOptions: {
